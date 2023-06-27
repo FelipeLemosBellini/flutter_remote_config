@@ -1,17 +1,25 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPreferenceService {
-  late SharedPreferences _prefs;
+  static final SharedPreferenceService _instance = SharedPreferenceService._internal();
 
-  Future<void> initialize() async {
-    _prefs = await SharedPreferences.getInstance();
+  factory SharedPreferenceService() {
+    return _instance;
   }
 
-  String read(String key) {
-    return _prefs.getString(key) ?? "";
+  SharedPreferenceService._internal();
+
+  Future<SharedPreferences> sharedPreferences() async {
+    return await SharedPreferences.getInstance();
   }
 
-  void write(String key, dynamic value) {
-    _prefs.setString(key, value);
+  Future<String> read(String key) async {
+    var prefs = await sharedPreferences();
+    return prefs.getString(key) ?? "";
+  }
+
+  void write(String key, dynamic value) async {
+    var prefs = await sharedPreferences();
+    prefs.setString(key, value);
   }
 }

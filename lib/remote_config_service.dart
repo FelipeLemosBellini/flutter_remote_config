@@ -1,10 +1,9 @@
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 
 class RemoteConfigService {
-  late FirebaseRemoteConfig _remoteConfig;
+  final FirebaseRemoteConfig _remoteConfig = FirebaseRemoteConfig.instance;
 
   Future<void> initialize() async {
-    _remoteConfig = FirebaseRemoteConfig.instance;
     try {
       await _remoteConfig.setDefaults(<String, dynamic>{});
       await _remoteConfig.fetchAndActivate();

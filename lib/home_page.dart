@@ -17,10 +17,11 @@ class _HomePageState extends State<HomePage> {
     super.initState();
   }
 
-  void _getApiKey() {
-    SharedPreferenceService().initialize();
-
-    setState(() => apiKey = SharedPreferenceService().read("api_key"));
+  void _getApiKey() async {
+    String localData = await SharedPreferenceService().read("api_key");
+    setState(() {
+      apiKey = localData;
+    });
   }
 
   @override
