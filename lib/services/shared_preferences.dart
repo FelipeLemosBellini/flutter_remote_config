@@ -13,9 +13,9 @@ class SharedPreferenceService {
     return await SharedPreferences.getInstance();
   }
 
-  Future<String> read(String key) async {
+  Future<dynamic> read(String key) async {
     var prefs = await sharedPreferences();
-    return prefs.getString(key) ?? "";
+    return prefs.get(key) ?? "";
   }
 
   void write(String key, dynamic value) async {

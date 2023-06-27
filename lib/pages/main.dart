@@ -1,14 +1,14 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:using_remote_config/firebase_options.dart';
-import 'package:using_remote_config/home_page.dart';
-import 'package:using_remote_config/settings_app.dart';
+import 'package:using_remote_config/pages/home_page.dart';
+import 'package:using_remote_config/services/settings_app.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
-  await SettingsApp().setApiKey();
+  await SettingsApp().setRemoteConfig();
   runApp(const MyApp());
 }
 

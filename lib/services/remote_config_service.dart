@@ -16,7 +16,8 @@ class RemoteConfigService {
     return _remoteConfig.getString(key);
   }
 
-  double getDouble(String key) {
-    return _remoteConfig.getDouble(key);
+  bool getBool(String key) {
+    bool result = _remoteConfig.getBool(key);
+    return result;
   }
 }
