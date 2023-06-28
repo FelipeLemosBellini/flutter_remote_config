@@ -31,7 +31,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: const Color(0xFF353535),
-        body: !isCircuitBreaker
+        body: isCircuitBreaker
             ? Center(
                 child: Container(
                     margin: const EdgeInsets.all(24),
