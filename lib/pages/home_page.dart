@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:using_remote_config/model/services_model.dart';
 import 'package:using_remote_config/services/settings_app.dart';
 
@@ -30,7 +31,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: const Color(0xFF353535),
-        body: isCircuitBreaker
+        body: !isCircuitBreaker
             ? Center(
                 child: Container(
                     margin: const EdgeInsets.all(24),
@@ -43,24 +44,26 @@ class _HomePageState extends State<HomePage> {
                 child: SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Row(children: [
-                      card(title: "buy", disable: servicesModel.buy),
-                      card(title: "sell", disable: servicesModel.sell),
-                      card(title: "deposit", disable: servicesModel.deposit),
-                      card(title: "convert", disable: servicesModel.convert),
-                      card(title: "leverage", disable: servicesModel.leverage),
+                      card(title: "buy", isEnabled: servicesModel.buy),
+                      card(title: "sell", isEnabled: servicesModel.sell),
+                      card(title: "deposit", isEnabled: servicesModel.deposit),
+                      card(title: "convert", isEnabled: servicesModel.convert),
+                      card(title: "leverage", isEnabled: servicesModel.leverage),
                     ]))));
   }
 
-  Widget card({required String title, required bool disable}) {
-    return Container(
-        margin: const EdgeInsets.all(16),
-        height: 90,
-        width: 120,
-        decoration: BoxDecoration(
-            color: disable ? Colors.white10 : Colors.white12,
-            border: Border.all(color: disable ? Colors.white : Colors.black, width: 1, style: BorderStyle.solid),
-            borderRadius: const BorderRadius.all(Radius.circular(10))),
-        child: Center(
-            child: Text(title, style: TextStyle(color: disable ? Colors.white : Colors.white30, fontSize: 16))));
+  Widget card({required String title, required bool isEnabled}) {
+    return GestureDetector(
+        onTap: isEnabled ? () => HapticFeedback.lightImpact() : () {},
+        child: Container(
+            margin: const EdgeInsets.all(16),
+            height: 90,
+            width: 120,
+            decoration: BoxDecoration(
+                color: isEnabled ? Colors.white10 : Colors.white12,
+                border: Border.all(color: isEnabled ? Colors.white : Colors.black, width: 1, style: BorderStyle.solid),
+                borderRadius: const BorderRadius.all(Radius.circular(10))),
+            child: Center(
+                child: Text(title, style: TextStyle(color: isEnabled ? Colors.white : Colors.white30, fontSize: 16)))));
   }
 }

@@ -17,9 +17,9 @@ class SettingsApp {
     RemoteConfigService remote = RemoteConfigService();
     await remote.initialize();
     isCircuitBreaker = remote.getBool("is_circuit_breaker");
-    // String services = remote.getString("services").toString();
-    // Map<String, dynamic> jsonMap = json.decode(services);
-    //
-    // servicesModel = ServicesModel.fromMap(jsonMap);
+    String services = remote.getString("services").toString();
+    Map<String, dynamic> jsonMap = json.decode(services);
+
+    servicesModel = ServicesModel.fromMap(jsonMap);
   }
 }
